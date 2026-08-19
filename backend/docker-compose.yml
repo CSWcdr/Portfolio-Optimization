@@ -1,0 +1,12 @@
+services:
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"  # Map port 8000 on the host to port 80 on the container
+    volumes:
+      - .:/app  # Mount the current directory (backend/) into /app inside the container
+    environment:
+      - PYTHONUNBUFFERED=1  # Optional, ensures output is not buffered
+    command: uvicorn app.main:app --host 0.0.0.0 --port 80 --reload --timeout-keep-alive 300
